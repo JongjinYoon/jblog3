@@ -15,8 +15,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/adminheader.jsp" />
-				<form action="${pageContext.request.contextPath}/blog/blog-admin-basic" method="post">
-	 		      	<input type="hidden" name="id" value="${vo.id }">
+				<form action="${pageContext.request.contextPath}/${vo.id }/blog-admin-basic" method="post" enctype="multipart/form-data">	 		      	
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -24,11 +23,11 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src=""></td>      			
+			      			<td><img src="${pageContext.request.contextPath }${vo.logo }"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="logo"></td>      			
+			      			<td><input type="file" name="logo" id="즐"></td>      			
 			      		</tr>           		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

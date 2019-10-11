@@ -15,7 +15,8 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 	<aop:aspectj-autoproxy />
-
+	<mvc:resources location="file:/uploads/"
+		mapping="/images/**" />
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
@@ -40,37 +41,24 @@
 
 		</mvc:message-converters>
 		<!-- Argument Resolvers -->
-		<!-- <mvc:argument-resolvers>
-			<bean class="kr.co.itcen.jblog.security.AuthUserHandlerMethodArgumentResolver" />
-		</mvc:argument-resolvers> -->
+		<!-- <mvc:argument-resolvers> <bean class="kr.co.itcen.jblog.security.AuthUserHandlerMethodArgumentResolver" 
+			/> </mvc:argument-resolvers> -->
 	</mvc:annotation-driven>
 
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
-	
+
 	<!-- Interceptor -->
-	<!-- <mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/user/**"/>
-			<bean class="kr.co.itcen.jblog.interceptor.MyInterceptor02"/>
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/user/auth"/>
-			<bean class="kr.co.itcen.jblog.security.LoginInterceptor"/>
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/user/logout"/>
-			<bean class="kr.co.itcen.jblog.security.LogoutInterceptor"/>
-		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<mvc:exclude-mapping path="/user/auth"/>
-			<mvc:exclude-mapping path="/user/logout"/>
-			<mvc:exclude-mapping path="/assets/**"/>
-			<bean class="kr.co.itcen.jblog.security.AuthInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors> -->
-	
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/user/**"/> 
+		<bean class="kr.co.itcen.jblog.interceptor.MyInterceptor02"/> </mvc:interceptor> 
+		<mvc:interceptor> <mvc:mapping path="/user/auth"/> <bean class="kr.co.itcen.jblog.security.LoginInterceptor"/> 
+		</mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/user/logout"/> <bean 
+		class="kr.co.itcen.jblog.security.LogoutInterceptor"/> </mvc:interceptor> 
+		<mvc:interceptor> <mvc:mapping path="/**"/> <mvc:exclude-mapping path="/user/auth"/> 
+		<mvc:exclude-mapping path="/user/logout"/> <mvc:exclude-mapping path="/assets/**"/> 
+		<bean class="kr.co.itcen.jblog.security.AuthInterceptor"/> </mvc:interceptor> 
+		</mvc:interceptors> -->
+
 	<!-- View Resolver -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -81,18 +69,28 @@
 		<property name="order" value="1" />
 	</bean>
 
-	 <!-- 6. MessageSource -->
+	<!-- 6. MessageSource -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
 				<value>messages/messages_ko</value>
 			</list>
-		</property> 
+		</property>
 	</bean>
 
 
 	<context:annotation-config />
 	<context:component-scan
 		base-package="kr.co.itcen.jblog.controller" />
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
 </beans>

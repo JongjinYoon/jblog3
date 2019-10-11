@@ -30,4 +30,12 @@
 		 where id = #{id }		
 		]]>
 	</select>
+	
+	<select id="getBlogInfo" parameterType="string" resultType="blogvo">
+		<![CDATA[
+		select *
+		  from blog
+		 where id = #{id }		
+		]]>
+	</select>
 </mapper>

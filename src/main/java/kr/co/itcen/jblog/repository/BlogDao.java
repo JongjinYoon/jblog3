@@ -33,4 +33,8 @@ public class BlogDao {
 	public BlogVo getId(String id) {
 		return sqlSession.selectOne("blog.getById", id);
 	}
+
+	public BlogVo getBlogInfo(String id) {
+		return sqlSession.selectOne("blog.getBlogInfo", id);
+	}
 }
